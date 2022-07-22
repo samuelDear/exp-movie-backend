@@ -17,20 +17,6 @@
   "keywords": [],
   "author": "Samuel Rojas",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.+(js|jsx)": [
-      "prettier --write --ignore-unknown",
-      "eslint --fix"
-    ],
-    "*.+(json|css|md)": [
-      "prettier --write"
-    ]
-  },
   "dependencies": {
     "chalk": "^5.0.1",
     "cors": "^2.8.5",

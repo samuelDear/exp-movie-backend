@@ -2,4 +2,4 @@
 import express from 'express';
 import config from './config.js';
 
-console.log(`port=${config.PORT}`);
+console.log(`port=${config.PORT} wao`);
