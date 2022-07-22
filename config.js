@@ -15,4 +15,7 @@ export default {
   NODE_ENV: process.env.NODE_ENV || 'dev',
   HOST: process.env.HOST || 'localhost',
   PORT: process.env.PORT || 3000,
+  DB_USER: process.env.DB_USER || '',
+  DB_PWD: process.env.DB_PWD || '',
+  DB_URL: process.env.DB_URL || 'localhost',
 };

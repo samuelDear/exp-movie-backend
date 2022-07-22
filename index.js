@@ -5,9 +5,13 @@ import chalk from 'chalk';
 
 import config from './config.js';
 import { router } from './src/routes/index.routes.js';
+import conn from './src/db/config/conn.js';
 
 // app
 const app = express();
+
+// Connection DB
+conn(config.DB_USER, config.DB_PWD);
 
 // Configuracion
 app.set('port', config.PORT || 4000);

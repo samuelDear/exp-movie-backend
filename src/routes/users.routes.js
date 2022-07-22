@@ -2,6 +2,7 @@ import express from 'express';
 import chalk from 'chalk';
 
 import { validateParams } from '../utils/index.js';
+import { registerUser } from '../controllers/index.controllers.js';
 
 const usersRouter = express.Router();
 
@@ -30,8 +31,6 @@ usersRouter.post('/forgot', (req, res) => {
   res.status(200).send('WAO0');
 });
 
-usersRouter.post('/register', (req, res) => {
-  res.status(200).send('WAO0');
-});
+usersRouter.post('/register', registerUser);
 
 export default usersRouter;
