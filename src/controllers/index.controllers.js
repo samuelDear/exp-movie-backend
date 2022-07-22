@@ -1,3 +1,3 @@
-import { registerUser } from './users.controllers.js';
+import { registerUser, login } from './auth.controllers.js';
 
-export { registerUser };
+export { registerUser, login };

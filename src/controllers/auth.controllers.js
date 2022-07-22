@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { validateParams } from '../utils/index.js';
 import { UsersModel } from '../db/models/index.models.js';
 
-export const loginUser = async (req, res) => {
+export const login = async (req, res) => {
   try {
     // parametros obligatorios
     const params = ['usr', 'pwd'];
