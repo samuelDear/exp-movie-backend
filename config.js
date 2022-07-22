@@ -20,4 +20,6 @@ export default {
   DB_URL: process.env.DB_URL || 'localhost',
   JWT_SECRET: process.env.JWT_SECRET || 'LOCAL-MOVIE',
   JWT_MAX_EXP_TIME: process.env.JWT_MAX_EXP_TIME || '72h',
+  EMAIL_USER: process.env.EMAIL_USER || '',
+  EMAIL_PWD: process.env.EMAIL_PWD || '',
 };

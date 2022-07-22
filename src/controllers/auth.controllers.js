@@ -1,9 +1,13 @@
 import chalk from 'chalk';
 import sha256 from 'crypto-js/sha256.js';
 
-import { validateParams, jwtSign } from '../utils/index.js';
+import {
+  validateParams,
+  jwtSign,
+  validateEmail,
+  sendEmail,
+} from '../utils/index.js';
 import { UsersModel } from '../db/models/index.models.js';
-import { validateEmail } from '../utils/validator.js';
 
 export const login = async (req, res) => {
   try {
@@ -101,6 +105,13 @@ export const registerUser = async (req, res) => {
     newUser.sessionid = sha256('movietoken' + newUser.id).toString();
 
     await newUser.save();
+
+    await sendEmail(
+      [usr],
+      'Usuario creado',
+      'Uusario creado con exito',
+      '<b>creates un nuevo usuario</b>',
+    );
 
     res.status(200).send({ msg: 'Usuario creado' });
   } catch (e) {
