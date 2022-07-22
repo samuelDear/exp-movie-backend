@@ -1,7 +1,9 @@
 import chalk from 'chalk';
+import sha256 from 'crypto-js/sha256.js';
 
-import { validateParams } from '../utils/index.js';
+import { validateParams, jwtSign } from '../utils/index.js';
 import { UsersModel } from '../db/models/index.models.js';
+import { validateEmail } from '../utils/validator.js';
 
 export const login = async (req, res) => {
   try {
@@ -16,10 +18,42 @@ export const login = async (req, res) => {
     // Obtenemos los datos
     const { usr, pwd } = req.body;
 
+    // Validamos que el correo sea valido
+    if (!validateEmail(usr)) {
+      return res.status(405).send({ msg: `Formato de correo incorrecto` });
+    }
+
     // Validamos si existe
     const row = await UsersModel.find({ usr, pwd }, { pwd: 0, lastSession: 0 });
 
-    res.status(200).send({ msg: 'Usuario' });
+    // Si no se encuentra, lanzamos error
+    if (row.length === 0) {
+      // eslint-disable-next-line no-console
+      console.info(
+        `${chalk.red('[ERROR]:')}`,
+        `Datos incorrectos o usuario no existe`,
+      );
+      return res
+        .status(403)
+        .send({ msg: `Datos incorrectos o usuario no existe` });
+    }
+
+    const user = row[0];
+
+    // Actualizamos su ultima sesion
+    user.lastSession = new Date();
+    await user.save();
+
+    // todo OK
+    res.status(200).send({
+      id: user.id,
+      email: user.usr,
+      token: jwtSign({ id: user.id, usr: user.usr }),
+      status: user.status,
+      lastSession: {
+        cannonical: user.lastSession,
+      },
+    });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
@@ -45,6 +79,11 @@ export const registerUser = async (req, res) => {
     // Obtenemos los datos
     const { usr, pwd } = req.body;
 
+    // Validamos que el correo sea valido
+    if (!validateEmail(usr)) {
+      return res.status(405).send({ msg: `Formato de correo incorrecto` });
+    }
+
     // Validamos si existe
     const row = await UsersModel.find({ usr }, { pwd: 0, lastSession: 0 });
 
@@ -57,10 +96,13 @@ export const registerUser = async (req, res) => {
 
     // Si llegamos aqui, creamos el usuario
     const newUser = new UsersModel({ usr, pwd, status: 1 });
+    await newUser.save();
 
-    const response = await newUser.save();
+    newUser.sessionid = sha256('movietoken' + newUser.id).toString();
 
-    res.status(200).send({ msg: 'Usuario creado', res: response });
+    await newUser.save();
+
+    res.status(200).send({ msg: 'Usuario creado' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);

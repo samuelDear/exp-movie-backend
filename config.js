@@ -18,4 +18,6 @@ export default {
   DB_USER: process.env.DB_USER || '',
   DB_PWD: process.env.DB_PWD || '',
   DB_URL: process.env.DB_URL || 'localhost',
+  JWT_SECRET: process.env.JWT_SECRET || 'LOCAL-MOVIE',
+  JWT_MAX_EXP_TIME: process.env.JWT_MAX_EXP_TIME || '72h',
 };
