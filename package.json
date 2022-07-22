@@ -1,18 +1,21 @@
 {
   "name": "exp-movie-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Practice proyect with NodeJs + Express + React",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "set NODE_ENV=dev && nodemon index.js",
+    "start:dev": "set NODE_ENV=dev && nodemon index.js",
+    "start:qa": "set NODE_ENV=qa && nodemon index.js",
+    "start:prd": "set NODE_ENV=prd && nodemon index.js",
     "lint": "eslint --fix ./*.js",
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
   "keywords": [],
-  "author": "",
+  "author": "Samuel Rojas",
   "license": "MIT",
   "husky": {
     "hooks": {
@@ -38,6 +41,7 @@
   "devDependencies": {
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
     "jest": "^28.1.3",
     "lint-staged": "^13.0.3",
