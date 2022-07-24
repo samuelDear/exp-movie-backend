@@ -1,14 +1,16 @@
 import express from 'express';
 
-import usersRouter from './users.routes.js';
+import loginRouter from './login.routes.js';
 
 const router = express.Router();
 
+// Rutas
 router.get('/', (req, res) => {
   // Carpetas de endpoints
   res.status(404).send('Page not found');
 });
 
-router.use('/users', usersRouter);
+// Auth
+router.use('/login', loginRouter);
 
 export { router };

@@ -1,3 +1,8 @@
-import { registerUser, login } from './auth.controllers.js';
+import {
+  registerUser,
+  login,
+  forgotPwd,
+  changePwd,
+} from './auth.controllers.js';
 
-export { registerUser, login };
+export { registerUser, login, forgotPwd, changePwd };

@@ -22,4 +22,5 @@ export default {
   JWT_MAX_EXP_TIME: process.env.JWT_MAX_EXP_TIME || '72h',
   EMAIL_USER: process.env.EMAIL_USER || '',
   EMAIL_PWD: process.env.EMAIL_PWD || '',
+  FRONT_URL: process.env.FRONT_URL || 'https://localhost:3000',
 };
