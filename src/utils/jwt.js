@@ -15,9 +15,6 @@ export const jwtValidator = (req, res, next) => {
 
     auth = auth.split(' ').pop();
 
-    // eslint-disable-next-line no-console
-    console.log(auth);
-
     const decoded = verify(auth, config.JWT_SECRET);
 
     req.tokenInfo = decoded;

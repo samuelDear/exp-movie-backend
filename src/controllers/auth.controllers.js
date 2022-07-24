@@ -170,7 +170,7 @@ export const changePwd = async (req, res) => {
       { $set: { sessionid: null, pwd: pwd } },
     );
 
-    res.status(200).send({ msg: 'Correo enviado' });
+    res.status(200).send({ msg: 'Contraseña cambiada exitosamente' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
