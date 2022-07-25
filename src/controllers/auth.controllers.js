@@ -55,8 +55,7 @@ export const login = async (req, res) => {
 
     await user.save();
 
-    // todo OK
-    res.status(200).send({
+    const out = {
       id: user.id,
       email: user.usr,
       sessionid: jwtSign({
@@ -68,7 +67,10 @@ export const login = async (req, res) => {
       lastSession: {
         cannonical: user.lastSession,
       },
-    });
+    };
+
+    // todo OK
+    res.status(200).send(out);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
