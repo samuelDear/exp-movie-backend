@@ -1,0 +1,41 @@
+name: Deploy API
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Remove gitignore file
+        run: |
+          rm .gitignore
+          ls -a
+      - name: Create ENV for PRD
+        run: |
+          touch prd.env
+          echo PORT=${{ secrets.API_PORT }} >> prd.env
+          echo HOST=${{ secrets.API_HOST }} >> prd.env
+          echo FRONT_URL=${{ secrets.API_FRONT_URL }} >> prd.env
+          echo DB_URL=${{ secrets.API_DB_URL }} >> prd.env
+          echo DB_USER=${{ secrets.API_DB_USER }} >> prd.env
+          echo DB_PWD=${{ secrets.API_DB_PWD }} >> prd.env
+          echo JWT_SECRET=${{ secrets.API_JWT_SECRET }} >> prd.env
+          echo JWT_MAX_EXP_TIME=${{ secrets.API_JWT_MAX_EXP_TIME }} >> prd.env
+          echo EMAIL_USER=${{ secrets.API_EMAIL_USER }} >> prd.env
+          echo EMAIL_PWD=${{ secrets.API_EMAIL_PWD }} >> prd.env
+          cat prd.env
+      - name: Commit changes
+        run: |
+          git config --global user.name ${{ secrets.API_USER_NAME }}
+          git config --global user.email ${{ secrets.API_USER_EMAIL }}
+          git add .
+          git commit -m "Add env file"
+      - uses: akhileshns/heroku-deploy@v3.3.6 # This is the action
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.API_APP_NAME }}
+          heroku_email: ${{ secrets.API_USER_EMAIL }}
