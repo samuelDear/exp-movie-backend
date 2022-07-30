@@ -8,6 +8,7 @@ import config from './config.js';
 import { router } from './src/routes/index.routes.js';
 import conn from './src/db/config/conn.js';
 
+console.log(config);
 // app
 const app = express();
 
