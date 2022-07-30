@@ -34,6 +34,6 @@ app.use((req, res) => {
 app.listen(app.get('port'), () => {
   // eslint-disable-next-line no-console
   console.info(
-    `${chalk.green('[server]:')} Server listen on port ${app.get('port')}`,
+    `${chalk.green('[server]:')} sServer listen on port ${app.get('port')}`,
   );
 });
