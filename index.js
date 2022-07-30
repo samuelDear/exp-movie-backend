@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import chalk from 'chalk';
+import compression from 'compression';
 
 import config from './config.js';
 import { router } from './src/routes/index.routes.js';
@@ -16,11 +17,12 @@ conn(config.DB_USER, config.DB_PWD);
 // Configuracion
 app.set('port', config.PORT || 4000);
 
-// cors
+// Others
 app.use(cors({ origin: '*' })); // cors
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(compression());
 
 // routes
 app.use('/api', router);
