@@ -11,6 +11,8 @@ dotenv.config({
   path: path.resolve(__dirname, `${process.env.NODE_ENV}.env`),
 });
 
+console.log(process.env.NODE_ENV);
+
 export default {
   NODE_ENV: process.env.NODE_ENV || 'dev',
   HOST: process.env.HOST || 'localhost',
