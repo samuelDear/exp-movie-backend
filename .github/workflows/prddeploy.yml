@@ -16,18 +16,18 @@ jobs:
           ls -a
       - name: Create ENV for PRD
         run: |
-          touch prd.env
-          echo PORT=${{ secrets.API_PORT }} >> prd.env
-          echo HOST=${{ secrets.API_HOST }} >> prd.env
-          echo FRONT_URL=${{ secrets.API_FRONT_URL }} >> prd.env
-          echo DB_URL=${{ secrets.API_DB_URL }} >> prd.env
-          echo DB_USER=${{ secrets.API_DB_USER }} >> prd.env
-          echo DB_PWD=${{ secrets.API_DB_PWD }} >> prd.env
-          echo JWT_SECRET=${{ secrets.API_JWT_SECRET }} >> prd.env
-          echo JWT_MAX_EXP_TIME=${{ secrets.API_JWT_MAX_EXP_TIME }} >> prd.env
-          echo EMAIL_USER=${{ secrets.API_EMAIL_USER }} >> prd.env
-          echo EMAIL_PWD=${{ secrets.API_EMAIL_PWD }} >> prd.env
-          cat prd.env
+          touch production.env
+          echo PORT=${{ secrets.API_PORT }} >> production.env
+          echo HOST=${{ secrets.API_HOST }} >> production.env
+          echo FRONT_URL=${{ secrets.API_FRONT_URL }} >> production.env
+          echo DB_URL=${{ secrets.API_DB_URL }} >> production.env
+          echo DB_USER=${{ secrets.API_DB_USER }} >> production.env
+          echo DB_PWD=${{ secrets.API_DB_PWD }} >> production.env
+          echo JWT_SECRET=${{ secrets.API_JWT_SECRET }} >> production.env
+          echo JWT_MAX_EXP_TIME=${{ secrets.API_JWT_MAX_EXP_TIME }} >> production.env
+          echo EMAIL_USER=${{ secrets.API_EMAIL_USER }} >> production.env
+          echo EMAIL_PWD=${{ secrets.API_EMAIL_PWD }} >> production.env
+          cat production.env
       - name: Commit changes
         run: |
           git config --global user.name ${{ secrets.API_USER_NAME }}
