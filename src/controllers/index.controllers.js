@@ -11,6 +11,13 @@ import {
   deleteMovieById,
   getMoviesList,
 } from './movies.controllers.js';
+import {
+  createComment,
+  getCommentListByMovie,
+  updateComment,
+  getCommentById,
+  getCommentsList,
+} from './comments.controllers.js';
 
 export {
   registerUser,
@@ -22,4 +29,9 @@ export {
   updateMovieById,
   deleteMovieById,
   getMoviesList,
+  createComment,
+  getCommentListByMovie,
+  updateComment,
+  getCommentById,
+  getCommentsList,
 };

@@ -1,30 +1,29 @@
 import express from 'express';
 
+import { jwtValidator } from '../utils/index.js';
+import {
+  createComment,
+  getCommentListByMovie,
+  getCommentById,
+  updateComment,
+  getCommentsList,
+} from '../controllers/index.controllers.js';
+
 const commentsRouter = express.Router();
 
 // Obtener listado de comentarios
-commentsRouter.get('/', (req, res) => {
-  res.send({ msg: 'wao' });
-});
+commentsRouter.get('/', jwtValidator, getCommentsList);
 
 // Crear comentario
-commentsRouter.post('/', (req, res) => {
-  res.send({ msg: 'wao' });
-});
+commentsRouter.post('/', jwtValidator, createComment);
 
 // Actualizar comentario
-commentsRouter.put('/:id', (req, res) => {
-  res.send({ msg: 'wao' });
-});
+commentsRouter.put('/:id', jwtValidator, updateComment);
 
 // Obtener comentario por ID
-commentsRouter.get('/:id', (req, res) => {
-  res.send({ msg: 'wao' });
-});
+commentsRouter.get('/:id', jwtValidator, getCommentById);
 
 // Obtener comentarios por MOVIE ID
-commentsRouter.get('/movie/:id', (req, res) => {
-  res.send({ msg: 'wao' });
-});
+commentsRouter.get('/movie/:id', jwtValidator, getCommentListByMovie);
 
 export default commentsRouter;
