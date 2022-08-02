@@ -16,7 +16,7 @@ export const createMovie = async (req, res) => {
 
     // Obtenemos los datos
     // Peticion
-    const { title, director, dsc } = req.body;
+    const { title, director, dsc, image } = req.body;
     // Headers
     const { id: userId } = req.tokenInfo;
 
@@ -35,6 +35,7 @@ export const createMovie = async (req, res) => {
       title,
       dsc,
       director,
+      image,
       // eslint-disable-next-line camelcase
       created_at: new Date(),
       // eslint-disable-next-line camelcase
@@ -90,6 +91,7 @@ export const getMovieById = async (req, res) => {
       title: movie.title,
       dsc: movie.dsc,
       director: movie.director,
+      image: movie.image,
       status: {
         id: movie.status,
         dsc: movie.status === 1 ? 'Activo' : 'Inactivo',
@@ -141,7 +143,7 @@ export const updateMovieById = async (req, res) => {
     // El query params
     const { id } = req.params;
     // Body
-    const { title, dsc, director, status } = req.body;
+    const { title, dsc, director, status, image } = req.body;
 
     const movie = await MoviesModel.findById(id);
 
@@ -157,6 +159,7 @@ export const updateMovieById = async (req, res) => {
     movie.dsc = dsc;
     movie.director = director;
     movie.status = status;
+    movie.image = image;
 
     await movie.save();
 
@@ -302,6 +305,7 @@ export const getMoviesList = async (req, res) => {
         title: el.title,
         dsc: el.dsc,
         director: el.director,
+        image: el.image,
         status: {
           id: el.status,
           dsc: el.status === '1' ? 'Activo' : 'Inactivo',

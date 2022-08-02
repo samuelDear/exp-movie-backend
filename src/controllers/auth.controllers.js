@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import sha256 from 'crypto-js/sha256.js';
+import { format } from 'date-fns';
 
 import {
   validateParams,
@@ -66,6 +67,7 @@ export const login = async (req, res) => {
       status: user.status,
       lastSession: {
         cannonical: user.lastSession,
+        formatted: format(new Date(user.lastSession), 'd-M-YYYY'),
       },
     };
 

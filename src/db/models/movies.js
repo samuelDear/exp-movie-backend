@@ -19,6 +19,10 @@ const MoviesSchema = new Schema({
     required: [true, 'director es requerido'],
     maxLength: 128,
   },
+  image: {
+    type: String,
+    required: [true, 'image es requerido'],
+  },
   // 0 INACTIVO, 1 ACTIVO
   status: {
     type: Number,

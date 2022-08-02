@@ -6,6 +6,7 @@ import {
   MoviesModel,
   UsersModel,
 } from '../db/models/index.models.js';
+import { format } from 'date-fns';
 
 // Crear comentario
 export const createComment = async (req, res) => {
@@ -121,6 +122,11 @@ export const getCommentListByMovie = async (req, res) => {
           id: user.id,
           email: user.usr,
         },
+        // eslint-disable-next-line camelcase
+        created_date: {
+          cannonical: row.created_at,
+          formatted: format(new Date(row.created_at), 'd-M-YYYY HH:m'),
+        },
       };
 
       records.push(record);
@@ -186,6 +192,11 @@ export const getCommentById = async (req, res) => {
       creator: {
         id: user.id,
         email: user.usr,
+      },
+      // eslint-disable-next-line camelcase
+      created_date: {
+        cannonical: comment.created_at,
+        formatted: format(new Date(comment.created_at), 'd-M-YYYY HH:m'),
       },
     };
 
@@ -327,6 +338,11 @@ export const getCommentsList = async (req, res) => {
         status: {
           id: el.status,
           dsc: el.status === '1' ? 'Activo' : 'Inactivo',
+        },
+        // eslint-disable-next-line camelcase
+        created_date: {
+          cannonical: el.created_at,
+          formatted: format(new Date(el.created_at), 'd-M-YYYY HH:m'),
         },
       };
 
