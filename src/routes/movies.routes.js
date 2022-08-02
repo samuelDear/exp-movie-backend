@@ -12,11 +12,11 @@ import {
 const moviesRouter = express.Router();
 
 // Inicio de sesion
-moviesRouter.get('/', jwtValidator, getMoviesList);
+moviesRouter.get('/', getMoviesList);
 
 moviesRouter.post('/', jwtValidator, createMovie);
 
-moviesRouter.get('/:id', jwtValidator, getMovieById);
+moviesRouter.get('/:id', getMovieById);
 
 moviesRouter.put('/:id', jwtValidator, updateMovieById);
 
