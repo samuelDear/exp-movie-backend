@@ -125,11 +125,103 @@ export const forgotPwd = async (req, res) => {
 
     await sendEmail(
       [usr],
-      'Usuario creado',
-      'Usario creado con exito',
-      `<div>
-        <a href="${config.FRONT_URL}/change?hash=${sessionid}&email=${usr}">Cambiar PWD</a>
-      </div>`,
+      'Movie place - Recuperar',
+      'Usario creado',
+      `<html>
+        <head>
+          <style>
+
+            .mainBox {
+              width: 100%;
+              padding: 20px 0px;
+              background: #CCC;
+              heigth: 100%;
+            }
+
+            .floatingBox {
+              margin: auto;
+              padding: 15px;
+              width: 70%;
+              display: block;
+              background: #FFF;
+              border-radius: 21px;
+            }
+
+            .title {
+              font-weight: 600;
+              font-size: 24px;
+              margin-bottom: 10px;
+              text-align: center;
+            }
+
+            .msgContent {
+              font-weight: 500;
+              font-size: 14px;
+              margin: 0px;
+              margin-bottom: 10px;
+              text-align: center;
+            }
+
+            .subMsg {
+              font-weight: 500;
+              font-size: 14px;
+              margin: 0px;
+              margin-bottom: 15px;
+              margin-right: auto;
+              margin-left: auto;
+              text-align: center;
+              line-height: 19px;
+              text-decoration: none;
+              display: block;
+            }
+
+            .btnRecover {
+              background: #00375B;
+              border-radius: 12px;
+              display: block;
+              margin: 20px auto;
+              padding: 10px 15px;
+              width: fit-content;
+              text-decoration: none;
+              color: #FFF;
+              cursor: pointer;
+            }
+
+          </style>
+        </head>
+      </html>
+      <body>
+        <div class="mainBox">
+          <div class="floatingBox">
+
+            <h1 class="title" >Movie Place</h1>
+
+            <p class='msgContent'>
+              Entra en este enlace para restablecer la contrase&ntilde;a de la cuenta <label style='color: #FFF;'>${usr.toLowerCase()}</label>
+            </p>
+
+            <p class='subMsg'>
+              Este es tu enlace
+            </p>
+
+            <a href="${
+              config.FRONT_URL
+            }/change?hash=${sessionid}&email=${usr}" class='subMsg'>
+              ${config.FRONT_URL}/change
+            </a>
+
+
+            <a class="btnRecover" href="${
+              config.FRONT_URL
+            }/change?hash=${sessionid}&email=${usr}">Cambiar contraseña</a>
+          
+            <p style='color:#888;text-align: center;font-weight: bold;'>
+              Si usted no solicito este código ignore este mensaje
+            </p>
+          </div>
+        </div>
+      </body>
+      `,
     );
 
     res.status(200).send({ msg: 'Correo enviado' });
@@ -227,9 +319,60 @@ export const registerUser = async (req, res) => {
 
     await sendEmail(
       [usr],
-      'Usuario creado',
+      'Movie place - Usuario creado',
       'Usario creado con exito',
-      '<b>creaste un nuevo usuario</b>',
+      `<html>
+        <head>
+          <style>
+
+            .mainBox {
+              width: 100%;
+              padding: 20px 0px;
+              background: #CCC;
+              heigth: 100%;
+            }
+
+            .floatingBox {
+              margin: auto;
+              padding: 15px;
+              width: 70%;
+              display: block;
+              background: #FFF;
+              border-radius: 21px;
+            }
+
+            .title {
+              font-weight: 600;
+              font-size: 24px;
+              margin-bottom: 10px;
+              text-align: center;
+            }
+
+            .msgContent {
+              font-weight: 500;
+              font-size: 14px;
+              margin: 0px;
+              margin-bottom: 10px;
+              text-align: center;
+            }
+
+          </style>
+        </head>
+      </html>
+      <body>
+        <div class="mainBox">
+          <div class="floatingBox">
+
+            <h1 class="title">Movie Place</h1>
+
+            <p class='msgContent'>
+              Registro del usuario <label style='color: #FFF;'>${usr.toLowerCase()}</label> ha sido completado
+            </p>
+          
+          </div>
+        </div>
+      </body>
+      `,
     );
 
     res.status(200).send({ msg: 'Usuario creado' });
