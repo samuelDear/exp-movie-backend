@@ -67,7 +67,7 @@ export const login = async (req, res) => {
       status: user.status,
       lastSession: {
         cannonical: user.lastSession,
-        formatted: format(new Date(user.lastSession), 'd-M-YYYY'),
+        formatted: format(new Date(user.lastSession), 'dd-MM-yyyy'),
       },
     };
 
