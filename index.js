@@ -21,7 +21,7 @@ app.set('port', config.PORT || 4000);
 // Others
 app.use(cors({ origin: '*' })); // cors
 app.use(helmet());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
