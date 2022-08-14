@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import jsonwebtoken from 'jsonwebtoken';
 
 import { validateParams } from '../utils/index.js';
 import {
@@ -6,7 +7,10 @@ import {
   MoviesModel,
   UsersModel,
 } from '../db/models/index.models.js';
+import config from '../../config.js';
 import { format } from 'date-fns';
+
+const { verify } = jsonwebtoken;
 
 // Crear comentario
 export const createComment = async (req, res) => {
@@ -81,6 +85,15 @@ export const getCommentListByMovie = async (req, res) => {
         .send({ msg: `Parametros obligatorios ${params.join(', ')}` });
     }
 
+    let auth = req.headers['authorization'];
+
+    let decoded = {};
+
+    if (auth) {
+      auth = auth.split(' ').pop();
+      decoded = verify(auth, config.JWT_SECRET);
+    }
+
     // Obtenemos los datos
     const orderby = req.query.orderby || 'created_at';
     const dir = req.query.dir ? (req.query.dir === 'asc' ? 1 : -1) : 1;
@@ -120,12 +133,15 @@ export const getCommentListByMovie = async (req, res) => {
         dsc: row[i].dsc,
         author: {
           id: user.id,
+          name: user.name,
           email: user.usr,
         },
+        canDelete: decoded.id === user.id,
+        canEdit: decoded.id === user.id,
         // eslint-disable-next-line camelcase
         created_date: {
-          cannonical: row.created_at,
-          formatted: format(new Date(row.created_at), 'd-M-YYYY HH:m'),
+          cannonical: row[i].created_at,
+          formatted: format(new Date(row[i].created_at), 'dd-MM-yyyy HH:m'),
         },
       };
 
@@ -191,12 +207,13 @@ export const getCommentById = async (req, res) => {
       },
       creator: {
         id: user.id,
+        name: user.name,
         email: user.usr,
       },
       // eslint-disable-next-line camelcase
       created_date: {
         cannonical: comment.created_at,
-        formatted: format(new Date(comment.created_at), 'd-M-YYYY HH:m'),
+        formatted: format(new Date(comment.created_at), 'dd-MM-yyyy HH:m'),
       },
     };
 
@@ -227,7 +244,7 @@ export const updateComment = async (req, res) => {
 
     // Obtenemos los datos
     const { id } = req.params;
-    const { dsc } = req.params;
+    const { dsc } = req.body;
     const out = {};
 
     // Validamos que exista el comentario
@@ -342,7 +359,7 @@ export const getCommentsList = async (req, res) => {
         // eslint-disable-next-line camelcase
         created_date: {
           cannonical: el.created_at,
-          formatted: format(new Date(el.created_at), 'd-M-YYYY HH:m'),
+          formatted: format(new Date(el.created_at), 'dd-MM-yyyy HH:m'),
         },
       };
 
@@ -350,6 +367,50 @@ export const getCommentsList = async (req, res) => {
     });
 
     out.records = records;
+
+    // todo OK
+    res.status(200).send(out);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.info(`${chalk.red('[ERROR]:')}`, e.message);
+    return (
+      res
+        .status(500)
+        // eslint-disable-next-line camelcase
+        .send({ msg: 'Error interno', msg_detail: e.message })
+    );
+  }
+};
+
+// Actualizar un comentario
+export const deleteComment = async (req, res) => {
+  try {
+    // parametros obligatorios
+    const params = ['id'];
+    if (!validateParams(req.params, params)) {
+      return res
+        .status(400)
+        .send({ msg: `Parametros obligatorios ${params.join(', ')}` });
+    }
+
+    // Obtenemos los datos
+    const { id } = req.params;
+    const out = {};
+
+    // Validamos que exista el comentario
+    const comment = await CommentsModel.findById(id);
+
+    // Si no obtuvimos resultados. marcamos error
+    if (!comment) {
+      // eslint-disable-next-line no-console
+      console.info(`${chalk.red('[ERROR]:')}`, `Comentario no existe`);
+      return res.status(402).send({ msg: `Comentario no existe` });
+    }
+
+    // Guardamos
+    await comment.remove();
+
+    out.msg = 'Comentario eliminado';
 
     // todo OK
     res.status(200).send(out);

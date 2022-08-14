@@ -59,6 +59,7 @@ export const login = async (req, res) => {
     const out = {
       id: user.id,
       email: user.usr,
+      name: user.name,
       sessionid: jwtSign({
         id: user.id,
         usr: user.usr,
@@ -293,6 +294,7 @@ export const registerUser = async (req, res) => {
     // Obtenemos los datos
     const usr = req.body.usr.toLowerCase();
     const pwd = req.body.pwd;
+    const name = req.body.name;
 
     // Validamos que el correo sea valido
     if (!validateEmail(usr)) {
@@ -310,7 +312,7 @@ export const registerUser = async (req, res) => {
     }
 
     // Si llegamos aqui, creamos el usuario
-    const newUser = new UsersModel({ usr: usr, pwd, status: 1 });
+    const newUser = new UsersModel({ usr: usr, name, pwd, status: 1 });
     await newUser.save();
 
     newUser.sessionid = sha256('movietoken' + newUser.id).toString();

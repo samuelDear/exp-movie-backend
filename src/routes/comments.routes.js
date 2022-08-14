@@ -7,6 +7,7 @@ import {
   getCommentById,
   updateComment,
   getCommentsList,
+  deleteComment,
 } from '../controllers/index.controllers.js';
 
 const commentsRouter = express.Router();
@@ -24,6 +25,9 @@ commentsRouter.put('/:id', jwtValidator, updateComment);
 commentsRouter.get('/:id', jwtValidator, getCommentById);
 
 // Obtener comentarios por MOVIE ID
-commentsRouter.get('/movie/:id', jwtValidator, getCommentListByMovie);
+commentsRouter.get('/movie/:id', getCommentListByMovie);
+
+// Eliminar un comentario por ID
+commentsRouter.delete('/:id', jwtValidator, deleteComment);
 
 export default commentsRouter;

@@ -17,6 +17,7 @@ import {
   updateComment,
   getCommentById,
   getCommentsList,
+  deleteComment,
 } from './comments.controllers.js';
 
 export {
@@ -34,4 +35,5 @@ export {
   updateComment,
   getCommentById,
   getCommentsList,
+  deleteComment,
 };

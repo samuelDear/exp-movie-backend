@@ -18,6 +18,11 @@ const UsersSchema = new Schema({
       'Formato de correo incorrecto',
     ],
   },
+  name: {
+    type: String,
+    required: [true, 'name es requerido'],
+    maxLength: 128,
+  },
   // Password encryptada en MD5
   pwd: {
     type: String,
