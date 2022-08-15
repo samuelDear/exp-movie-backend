@@ -207,14 +207,14 @@ export const forgotPwd = async (req, res) => {
 
             <a href="${
               config.FRONT_URL
-            }/change?hash=${sessionid}&email=${usr}" class='subMsg'>
-              ${config.FRONT_URL}/change
+            }/#/change?hash=${sessionid}&email=${usr}" class='subMsg'>
+              ${config.FRONT_URL}/#/change
             </a>
 
 
             <a class="btnRecover" href="${
               config.FRONT_URL
-            }/change?hash=${sessionid}&email=${usr}">Cambiar contraseña</a>
+            }/#/change?hash=${sessionid}&email=${usr}">Cambiar contraseña</a>
           
             <p style='color:#888;text-align: center;font-weight: bold;'>
               Si usted no solicito este código ignore este mensaje
