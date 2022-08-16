@@ -35,8 +35,8 @@ export const createComment = async (req, res) => {
     // Si no obtuvimos resultados. marcamos error
     if (!movieRow) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula no existe`);
-      return res.status(402).send({ msg: `Pelicula no existe` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película no existe`);
+      return res.status(402).send({ msg: `Película no existe` });
     }
 
     const newComment = new CommentsModel({
@@ -107,8 +107,8 @@ export const getCommentListByMovie = async (req, res) => {
     // Si no obtuvimos resultados. marcamos error
     if (!movieRow) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula no existe`);
-      return res.status(402).send({ msg: `Pelicula no existe` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película no existe`);
+      return res.status(402).send({ msg: `Película no existe` });
     }
 
     // Buscamos la cantidad de comentarios

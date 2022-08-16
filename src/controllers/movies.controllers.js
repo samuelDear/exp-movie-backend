@@ -26,8 +26,8 @@ export const createMovie = async (req, res) => {
     // Si obtuvimos resultados. marcamos error
     if (qty > 0) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula ${title} ya existe`);
-      return res.status(402).send({ msg: `Pelicula ${title} ya existe` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película ${title} ya existe`);
+      return res.status(402).send({ msg: `Película ${title} ya existe` });
     }
 
     // Si llegamos aqui, creamos la pelicula
@@ -47,7 +47,7 @@ export const createMovie = async (req, res) => {
     await newMovie.save();
 
     // todo OK
-    res.status(200).send({ msg: 'Pelicula creada con exito' });
+    res.status(200).send({ msg: 'Película creada con exito' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
@@ -79,8 +79,8 @@ export const getMovieById = async (req, res) => {
     // Validamos si existe la pelicula por su ID
     if (movie === null) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula no encontrada`);
-      return res.status(402).send({ msg: `Pelicula no encontrada` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película no encontrada`);
+      return res.status(402).send({ msg: `Película no encontrada` });
     }
 
     // Buscamos al creador
@@ -150,8 +150,8 @@ export const updateMovieById = async (req, res) => {
     // Validamos si existe la pelicula por su ID
     if (movie === null) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula no encontrada`);
-      return res.status(402).send({ msg: `Pelicula no encontrada` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película no encontrada`);
+      return res.status(402).send({ msg: `Película no encontrada` });
     }
 
     // Actualizamos esa pelicula
@@ -164,7 +164,7 @@ export const updateMovieById = async (req, res) => {
     await movie.save();
 
     // todo OK
-    res.status(200).send({ msg: 'Pelicula actualizada con exito' });
+    res.status(200).send({ msg: 'Película actualizada con exito' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
@@ -196,14 +196,14 @@ export const deleteMovieById = async (req, res) => {
     // Validamos si existe la pelicula por su ID
     if (movie === null) {
       // eslint-disable-next-line no-console
-      console.info(`${chalk.red('[ERROR]:')}`, `Pelicula no encontrada`);
-      return res.status(402).send({ msg: `Pelicula no encontrada` });
+      console.info(`${chalk.red('[ERROR]:')}`, `Película no encontrada`);
+      return res.status(402).send({ msg: `Película no encontrada` });
     }
 
     await movie.remove();
 
     // todo OK
-    res.status(200).send({ msg: 'Pelicula eliminada con exito' });
+    res.status(200).send({ msg: 'Película eliminada con exito' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.info(`${chalk.red('[ERROR]:')}`, e.message);
